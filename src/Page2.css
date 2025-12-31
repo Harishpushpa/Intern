@@ -1,0 +1,200 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: #eef1f8;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: #1f2937;
+  color: white;
+  padding: 20px;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.doctor {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.doctor img {
+  width: 80px;
+  border-radius: 50%;
+}
+
+.doctor span {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.menu-title {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-bottom: 10px;
+}
+
+.menu {
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu.active {
+  background: #374151;
+  border-radius: 6px;
+}
+
+.right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.content {
+  padding: 20px;
+}
+
+.breadcrumb {
+  color: #2e4f91;
+  margin-bottom: 15px;
+}
+
+.card {
+  background: #e6ebf7;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.card-header input {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th {
+  padding: 12px;
+  background: #f9fafb;
+  font-size: 13px;
+  text-align: left;
+}
+
+td {
+  padding: 12px;
+  font-size: 13px;
+  border-top: 1px solid #eee;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.name img {
+  width: 35px;
+  border-radius: 50%;
+}
+
+.gender, .status {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.gender.male {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.gender.female {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+.status.upcoming {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.status.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.canceled {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.pagination {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.active-page {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
