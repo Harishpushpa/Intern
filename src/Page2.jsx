@@ -51,7 +51,7 @@ const Page2 = () => {
   );
 
   const handlePatientClick = (patient) => {
-    navigate("/", { state: { patientData: patient } });
+    navigate("/page1", { state: { patientData: patient } });
   };
 
   return (

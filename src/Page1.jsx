@@ -131,7 +131,7 @@ export default function App() {
             style={{ marginBottom: "8px" }}
           >
             <button
-              onClick={() => navigate("/page2")}
+              onClick={() => navigate("/")}
               style={{
                 width: "100%",
                 background: "none",
@@ -184,7 +184,7 @@ export default function App() {
         <div className="content-area">
           <button 
             className="back-button"
-            onClick={() => navigate("/page2")}
+            onClick={() => navigate("/")}
           >
             ← Back to Patients
           </button>
