@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "./Page1.css";
+import { useNavigate } from "react-router-dom";
 
 export default function App() {
+
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("diagnosis");
   const [diagnosisList, setDiagnosisList] = useState([
     {
@@ -68,8 +71,7 @@ export default function App() {
         </div>
 
         <div className="menu-section">
-          <div className="menu-label">MAIN</div>
-          <div className="menu-item">Appointments</div>
+          <div className="menu-item"><button onClick={()=>navigate('/page2')}>Appointments</button></div>
         </div>
       </div>
 

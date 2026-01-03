@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Page2.css";
+import { useNavigate } from "react-router-dom";
 
 const appointments = [];
 
@@ -20,12 +21,22 @@ for (let i = 1; i <= 35; i++) {
 }
 
 const Page2 = () => {
+  const navigate = useNavigate();
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const totalPages = Math.ceil(appointments.length / itemsPerPage);
+  const filteredAppointments = appointments.filter((appointment) => {
+    const search = searchTerm.toLowerCase();
+    return (
+      appointment.name.toLowerCase().includes(search) ||
+      appointment.email.toLowerCase().includes(search)
+    );
+  });
+
+  const totalPages = Math.ceil(filteredAppointments.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentData = appointments.slice(
+  const currentData = filteredAppointments.slice(
     startIndex,
     startIndex + itemsPerPage
   );
@@ -41,7 +52,7 @@ const Page2 = () => {
           <span>DOCTOR</span>
         </div>
 
-        <div className="menu-title">MAIN</div>
+        <div className="menu-title"><button onClick={()=>{navigate('/')}}>MAIN</button></div>
         <button className="menu active">Appointments</button>
       </aside>
 
@@ -59,7 +70,14 @@ const Page2 = () => {
           <div className="card">
             <div className="card-header">
               <h3>Appointments</h3>
-              <input placeholder="Search" />
+              <input 
+                placeholder="Search by name or email" 
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1);
+                }}
+              />
             </div>
 
             <table>
