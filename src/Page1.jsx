@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "./Page1.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function App() {
-
   const navigate = useNavigate();
+  const location = useLocation();
+  const patientData = location.state?.patientData;
+
   const [activeTab, setActiveTab] = useState("diagnosis");
   const [diagnosisList, setDiagnosisList] = useState([
     {
@@ -16,6 +18,24 @@ export default function App() {
   const [diagnosisType, setDiagnosisType] = useState("Anxiety Disorder");
   const [diagnosisDesc, setDiagnosisDesc] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
+
+  // Default patient data if none is passed
+  const defaultPatient = {
+    name: "Sarah Johnson",
+    patientId: "PAT-2024-001",
+    gender: "Female",
+    age: 34,
+    bloodGroup: "O+",
+    temperature: "101.2°F",
+    pulse: "88 bpm",
+    bloodPressure: "125/82",
+    height: "165 cm",
+    weight: "70 kg",
+    disease: "Fever",
+    id: "0156"
+  };
+
+  const patient = patientData || defaultPatient;
 
   const handleAddDiagnosis = () => {
     if (diagnosisDesc.trim()) {
@@ -61,17 +81,82 @@ export default function App() {
         </div>
 
         <div className="doctor-profile">
-          <div className="doctor-card">
-            <div className="doctor-avatar"></div>
+          <div
+            className="doctor-card"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px"
+            }}
+          >
+            <img
+              src="https://i.pravatar.cc/100?img=12"
+              alt="Doctor Avatar"
+              style={{
+                width: "48px",
+                height: "48px",
+                borderRadius: "50%",
+                objectFit: "cover"
+              }}
+            />
+
             <div>
-              <div className="doctor-name">Ashton Cox</div>
-              <div className="doctor-role">DOCTOR</div>
+              <div
+                className="doctor-name"
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#ffffff"
+                }}
+              >
+                Ashton Cox
+              </div>
+              <div
+                className="doctor-role"
+                style={{
+                  fontSize: "11px",
+                  color: "#9ca3af",
+                  letterSpacing: "1px"
+                }}
+              >
+                DOCTOR
+              </div>
             </div>
           </div>
         </div>
 
         <div className="menu-section">
-          <div className="menu-item"><button onClick={()=>navigate('/page2')}>Appointments</button></div>
+          <div
+            className="menu-item"
+            style={{ marginBottom: "8px" }}
+          >
+            <button
+              onClick={() => navigate("/page2")}
+              style={{
+                width: "100%",
+                background: "none",
+                border: "none",
+                padding: "10px 12px",
+                color: "#d1d5db",
+                fontSize: "14px",
+                fontWeight: 500,
+                cursor: "pointer",
+                textAlign: "left",
+                borderRadius: "6px",
+                transition: "background 0.2s ease, color 0.2s ease"
+              }}
+              onMouseOver={(e) => {
+                e.target.style.background = "#374151";
+                e.target.style.color = "#ffffff";
+              }}
+              onMouseOut={(e) => {
+                e.target.style.background = "none";
+                e.target.style.color = "#d1d5db";
+              }}
+            >
+              Appointments
+            </button>
+          </div>
         </div>
       </div>
 
@@ -97,7 +182,12 @@ export default function App() {
         </div>
 
         <div className="content-area">
-          <button className="back-button">← Back to Patients</button>
+          <button 
+            className="back-button"
+            onClick={() => navigate("/page2")}
+          >
+            ← Back to Patients
+          </button>
 
           <div className="page-header">
             <div>
@@ -113,32 +203,32 @@ export default function App() {
 
           <div className="grid-container">
             <div className="card">
-              <div className="card-title">OP-2024-0156</div>
+              <div className="card-title">OP-2024-{String(patient.id || "0156").padStart(4, "0")}</div>
 
               <div className="info-grid">
                 <div className="info-item">
                   <label className="label">Name</label>
-                  <div className="value">Sarah Johnson</div>
+                  <div className="value">{patient.name}</div>
                 </div>
 
                 <div className="info-item">
                   <label className="label">Patient ID</label>
-                  <div className="value patient-id">PAT-2024-001</div>
+                  <div className="value patient-id">{patient.patientId}</div>
                 </div>
 
                 <div className="info-item">
                   <label className="label">Gender</label>
-                  <span className="info-badge">Female</span>
+                  <span className="info-badge">{patient.gender}</span>
                 </div>
 
                 <div className="info-item">
                   <label className="label">Age</label>
-                  <div className="value">34 years</div>
+                  <div className="value">{patient.age} years</div>
                 </div>
 
                 <div className="info-item">
                   <label className="label">Blood Group</label>
-                  <span className="info-badge">O+</span>
+                  <span className="info-badge">{patient.bloodGroup}</span>
                 </div>
               </div>
             </div>
@@ -152,13 +242,15 @@ export default function App() {
                     <span className="vital-icon">🌡️</span>
                     <div>
                       <div className="vital-label">Temperature</div>
-                      <div className="vital-value">101.2°F</div>
-                      <div className="fever-indicator">Fever</div>
+                      <div className="vital-value">{patient.temperature}</div>
+                      {parseFloat(patient.temperature) > 100 && (
+                        <div className="fever-indicator">Fever</div>
+                      )}
                     </div>
                   </div>
                   <div>
                     <div className="vital-label">Pulse</div>
-                    <div className="vital-value">88 bpm</div>
+                    <div className="vital-value">{patient.pulse}</div>
                   </div>
                 </div>
 
@@ -167,11 +259,11 @@ export default function App() {
                 <div className="vital-row">
                   <div>
                     <div className="vital-label">Blood Pressure</div>
-                    <div className="vital-value">125/82</div>
+                    <div className="vital-value">{patient.bloodPressure}</div>
                   </div>
                   <div>
                     <div className="vital-label">Height</div>
-                    <div className="vital-value">165 cm</div>
+                    <div className="vital-value">{patient.height}</div>
                   </div>
                 </div>
 
@@ -179,7 +271,7 @@ export default function App() {
 
                 <div>
                   <div className="vital-label">Weight</div>
-                  <div className="vital-value">70 kg</div>
+                  <div className="vital-value">{patient.weight}</div>
                 </div>
               </div>
             </div>

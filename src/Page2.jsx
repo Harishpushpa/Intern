@@ -6,6 +6,7 @@ const appointments = [];
 
 for (let i = 1; i <= 35; i++) {
   appointments.push({
+    id: i,
     name: "Patient " + i,
     avatar: "https://i.pravatar.cc/40?img=" + i,
     date: "10/02/2024",
@@ -17,6 +18,14 @@ for (let i = 1; i <= 35; i++) {
       i % 3 === 0 ? "Completed" : i % 3 === 1 ? "Upcoming" : "Canceled",
     address: "Chennai",
     disease: "Fever",
+    patientId: "PAT-2024-" + String(i).padStart(3, "0"),
+    age: 25 + (i % 40),
+    bloodGroup: ["O+", "A+", "B+", "AB+", "O-"][i % 5],
+    temperature: "98." + (i % 9) + "°F",
+    pulse: (70 + (i % 30)) + " bpm",
+    bloodPressure: (120 + (i % 20)) + "/" + (80 + (i % 15)),
+    height: (150 + (i % 30)) + " cm",
+    weight: (55 + (i % 30)) + " kg",
   });
 }
 
@@ -41,6 +50,10 @@ const Page2 = () => {
     startIndex + itemsPerPage
   );
 
+  const handlePatientClick = (patient) => {
+    navigate("/", { state: { patientData: patient } });
+  };
+
   return (
     <div className="layout">
       <aside className="sidebar">
@@ -52,8 +65,12 @@ const Page2 = () => {
           <span>DOCTOR</span>
         </div>
 
-        <div className="menu-title"><button onClick={()=>{navigate('/')}}>MAIN</button></div>
-        <button className="menu active">Appointments</button>
+        <div
+          className="menu-title"
+          style={{ marginBottom: "10px" }}
+        >
+         
+        </div>
       </aside>
 
       <div className="right-section">
@@ -97,7 +114,13 @@ const Page2 = () => {
 
               <tbody>
                 {currentData.map((item, index) => (
-                  <tr key={index}>
+                  <tr 
+                    key={index}
+                    onClick={() => handlePatientClick(item)}
+                    style={{ cursor: "pointer" }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f3f4f6"}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ""}
+                  >
                     <td className="name">
                       <img src={item.avatar} alt="" />
                       {item.name}
